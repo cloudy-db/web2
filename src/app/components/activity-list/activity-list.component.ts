@@ -20,7 +20,7 @@ export class ActivityListComponent implements OnInit, OnDestroy {
 	constructor(private runNumberService: RunNumberService) {}
 
 	ngOnInit() {
-		this.subscriptions.add(this.runNumberService.activities$.subscribe((activities) => {this.bills = activities; }));
+		this.subscriptions.add(this.runNumberService.activities$.subscribe((activities) => {console.log('controller', activities); this.bills = activities; }));
 	}
 
 	ngOnDestroy() {
