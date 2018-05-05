@@ -1,9 +1,9 @@
 <div>
 	<!--filtering!!!-->
 	<div class="bill" *ngFor="let bill of bills">
-		<div class="amount">{{ bill.amount/100 | currency:bill.currency:'symbol-narrow':'0.2-2' }}</div>
-		<time>20 hours ago</time>
-		<div>Isaac Kwan</div>
-		<div>Comments, haha!</div>
+		<div class="amount">{{ bill.currency | currency2 }} {{ bill.amount/100 | number:'0.2-2' }}</div>
+		<time>{{ bill.time | timeAgo }}</time>
+		<div>{{ bill.name }}</div>
+		<div>{{ bill.comment }}</div>
 	</div>
 </div>

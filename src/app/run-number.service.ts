@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Cloudy, RunNumber } from 'cloudy';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class RunNumberService {
-	runNumber: any;
+	runNumber: BehaviorSubject<any> = new BehaviorSubject(undefined);
 
-	constructor() {}
+	constructor() {
+		RunNumber.create({
+			namespace: 'testing',
+		}).then((runNumber) => {
+			this.runNumber.next(runNumber);
+		});
+	}
 
 }

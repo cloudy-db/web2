@@ -7,8 +7,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityEditComponent } from './components/activity-edit/activity-edit.component';
 import { BillNewComponent } from './components/bill-new/bill-new.component';
-import { AvatarModule } from 'ng2-avatar';
 import { NameWithBackgroundComponent } from './helpers/name-with-background/name-with-background.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { Currency2 } from './helpers/currency2.pipe';
 
 @NgModule({
 	declarations: [
@@ -18,11 +19,12 @@ import { NameWithBackgroundComponent } from './helpers/name-with-background/name
 		ActivityEditComponent,
 		BillNewComponent,
 		NameWithBackgroundComponent,
+		TimeAgoPipe,
+		Currency2,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		AvatarModule.forRoot(),
 	],
 	providers: [],
 	bootstrap: [AppComponent],
