@@ -27,7 +27,9 @@ import { RunNumberService } from './run-number.service';
 		BrowserModule,
 		AppRoutingModule,
 	],
-	providers: [],
+	providers: [
+		RunNumberService,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule { }
