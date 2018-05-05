@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Cloudy, RunNumber } from 'cloudy';
+import { RunNumberStreamify } from 'cloudy';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { multicast } from 'rxjs/operators';
-
+import { publishBehavior, filter, switchAll, multicast, map, refCount } from 'rxjs/operators';
 
 @Injectable()
 export class RunNumberService {
-	runNumber$: BehaviorSubject<any> = new BehaviorSubject(undefined);
+	runNumber$: Observable<any> = new BehaviorSubject(undefined);
+	activities$: Observable<any>;
 
 	constructor() {
-		RunNumber.create({
-			namespace: 'testing',
-		}).then((runNumber) => {
-			this.runNumber$.next(runNumber);
-		});
+		this.runNumber$ = new Observable((observer) => {
+			RunNumberStreamify.create({
+					namespace: 'testing',
+				}).then((runNumber) => {
+					observer.next(runNumber);
+				});
+			}).pipe(
+				multicast(BehaviorSubject.create()),
+				refCount()
+			);
 
-		// this.activity = new Observable().multicast(BehaviorSubject.create()).refCount();
+		this.activities$ = this.runNumber$
+							.pipe(
+								filter((val) => val),
+								map((rns) => rns.activities),
+								switchAll(),
+								publishBehavior([]),
+								refCount()
+							);
 	}
 
 }

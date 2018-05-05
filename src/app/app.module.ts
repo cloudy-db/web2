@@ -10,6 +10,7 @@ import { BillNewComponent } from './components/bill-new/bill-new.component';
 import { NameWithBackgroundComponent } from './helpers/name-with-background/name-with-background.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { Currency2 } from './helpers/currency2.pipe';
+import { RunNumberService } from './run-number.service';
 
 @NgModule({
 	declarations: [
