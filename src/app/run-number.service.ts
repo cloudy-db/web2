@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cloudy, RunNumber } from 'cloudy';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { multicast } from 'rxjs/operators';
 
 
