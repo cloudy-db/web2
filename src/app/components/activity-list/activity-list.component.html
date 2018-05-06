@@ -1,6 +1,6 @@
 <div>
 	<!--filtering!!!-->
-	<div class="bill" *ngFor="let bill of bills">
+	<div class="bill" *ngFor="let bill of bills$ | async">
 		<div class="amount">{{ bill.currency | currency2 }} {{ bill.amount/100 | number:'0.2-2' }}</div>
 		<time>{{ bill.time | timeAgo }}</time>
 		<div>{{ bill.name }}</div>
