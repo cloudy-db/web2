@@ -18,7 +18,7 @@ export class RunNumberService {
 					observer.next(runNumber);
 				});
 		}).pipe(
-			multicast(new BehaviorSubject(undefined)),
+			publishBehavior(undefined),
 			refCount(),
 		);
 
@@ -29,7 +29,6 @@ export class RunNumberService {
 								tap((rn) => console.log('filtered rn', rn)),
 								map((rns) => rns.activities$),
 								switchAll(),
-								tap((val) => {console.log('before behaviour', val); }),
 								publishBehavior([]),
 								refCount(),
 							);

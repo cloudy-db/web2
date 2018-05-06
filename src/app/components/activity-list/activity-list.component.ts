@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { RunNumberService } from '../../run-number.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-activity-list',
@@ -17,10 +17,13 @@ export class ActivityListComponent implements OnInit, OnDestroy {
 		{amount: 12345, currency: 'HKD', time: new Date('2018-01-01'), name: 'Isaac', comment: 'cool'},
 	];
 
-	constructor(private runNumberService: RunNumberService) {}
+	constructor(private runNumberService: RunNumberService, private cdRef: ChangeDetectorRef) {}
 
 	ngOnInit() {
-		this.subscriptions.add(this.runNumberService.activities$.subscribe((activities) => {console.log('controller', activities); this.bills = activities; }));
+		this.runNumberService.activities$.subscribe((arr) => {
+			this.bills = arr;
+			this.cdRef.detectChanges();
+		});
 	}
 
 	ngOnDestroy() {
