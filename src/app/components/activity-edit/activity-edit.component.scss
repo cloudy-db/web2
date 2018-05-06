@@ -2,3 +2,13 @@
 	margin-right: 5px;
 	height: 1em;
 }
+
+@media (max-width: 767px) {
+	div.row div.button:not(:first-child) {
+		margin-top: 0.5rem;
+	}
+}
+
+.progress {
+	margin-bottom: 2.2rem;
+}

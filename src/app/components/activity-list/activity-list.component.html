@@ -1,9 +1,9 @@
 <div>
 	<!--filtering!!!-->
-	<div class="bill" *ngFor="let bill of bills$ | async">
+	<a *ngFor="let bill of bills$ | async" [routerLink]="'/activities/' + bill._id" class="bill">
 		<div class="amount">{{ bill.currency | currency2 }} {{ bill.amount/100 | number:'0.2-2' }}</div>
-		<time>{{ bill.time | timeAgo }}</time>
+		<time [attr.datetime]="bill.time.toISOString()">{{ bill.time | timeAgo }}</time>
 		<div>{{ bill.name }}</div>
 		<div>{{ bill.comment }}</div>
-	</div>
+	</a>
 </div>

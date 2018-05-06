@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+	.navbar-nav {
+		margin-left: auto;
+	}
+	.navbar-nav i.material-icons + span {
+		display: none;
+	}
+	.navbar-nav i.material-icons {
+		font-size: 27px;
+	}
+}

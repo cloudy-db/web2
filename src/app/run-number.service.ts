@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RunNumberStreamify } from 'cloudy';
 import { BehaviorSubject, Observable, ConnectableObservable } from 'rxjs';
-import { publishBehavior, filter, switchAll, multicast, map, refCount, tap, first } from 'rxjs/operators';
+import { publishBehavior, filter, switchAll, multicast, map, tap, first } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
 
 export interface Bill {
@@ -11,6 +11,20 @@ export interface Bill {
 	name: string;
 	comment?: string;
 	id?: string;
+}
+
+function getInstance(runNumber$: Observable<any>): Promise<any> {
+	return new Promise((resolve, reject) => {
+		runNumber$
+			.pipe(
+				filter((val) => !!val),
+				first(),
+			)
+			.subscribe(
+				(val) => resolve(val),
+				(e) => reject(e),
+			);
+	});
 }
 
 @Injectable()
@@ -44,15 +58,16 @@ export class RunNumberService {
 			);
 	}
 
-	addBill(bill: Bill): Promise<Bill> {
-		return new Promise((resolve, reject) => {
-			this.runNumber$
-				.pipe(first())
-				.subscribe(
-					(runNumber) => { resolve(runNumber.addBill(bill)); },
-					() => {reject(new Error('No runNumber instance is provided')); }
-				);
-		});
+	async addBill(bill: Bill): Promise<Bill> {
+		return (await getInstance(this.runNumber$)).addBill(bill);
+	}
+
+	async get(key: string): Promise<Bill> {
+		return (await getInstance(this.runNumber$)).get(key);
+	}
+
+	async del(key: string): Promise<Bill> {
+		return (await getInstance(this.runNumber$)).del(key);
 	}
 
 }
