@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RunNumberService } from '../../run-number.service';
 
 @Component({
 	selector: 'app-activity-edit',
@@ -15,7 +16,7 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 	activity: FormGroup;
 	isProcessing = false;
 
-	constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {}
+	constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private runNumberService: RunNumberService) {}
 
 	ngOnInit() {
 		this.activity = this.fb.group({
@@ -34,8 +35,15 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 		this.subscriptions.unsubscribe();
 	}
 
-	addBill() {
+	async addBill() {
 		this.isProcessing = true;
-		console.log(this.activity.value);
+		console.log('created bill', this.activity.value);
+		try {
+			await this.runNumberService.addBill(this.activity.value);
+			this.router.navigate(['/activities']);
+		} catch (e) {
+			console.error('Error while adding bill', e);
+			alert('An error occured. Please retry');
+		}
 	}
 }

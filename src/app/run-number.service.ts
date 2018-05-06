@@ -1,16 +1,25 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RunNumberStreamify } from 'cloudy';
 import { BehaviorSubject, Observable, ConnectableObservable } from 'rxjs';
-import { publishBehavior, filter, switchAll, multicast, map, refCount, tap } from 'rxjs/operators';
+import { publishBehavior, filter, switchAll, multicast, map, refCount, tap, first } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
+
+export interface Bill {
+	amount: number;
+	currency: string;
+	time: Date;
+	name: string;
+	comment?: string;
+	id?: string;
+}
 
 @Injectable()
 export class RunNumberService {
-	runNumber$: ConnectableObservable<any>;
+	runNumber$: BehaviorSubject<any> & ConnectableObservable<any>;
 	activities$: Observable<any>;
 
 	constructor(private ngZone: NgZone) {
-		this.runNumber$ = <ConnectableObservable<any>>new Observable((observer) => {
+		this.runNumber$ = <BehaviorSubject<any> & ConnectableObservable<any>>new Observable((observer) => {
 			console.debug('About to create RunNumberStreamify');
 			RunNumberStreamify.create({
 				namespace: 'testing',
@@ -33,7 +42,17 @@ export class RunNumberService {
 				switchAll(),
 				zonify(this.ngZone),
 			);
+	}
 
+	addBill(bill: Bill): Promise<Bill> {
+		return new Promise((resolve, reject) => {
+			this.runNumber$
+				.pipe(first())
+				.subscribe(
+					(runNumber) => { resolve(runNumber.addBill(bill)); },
+					() => {reject(new Error('No runNumber instance is provided')); }
+				);
+		});
 	}
 
 }
