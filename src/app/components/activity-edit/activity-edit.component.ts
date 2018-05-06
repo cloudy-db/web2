@@ -29,7 +29,7 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 			currency: '',
 			name: '',
 			comment: '',
-			time: new Date(),
+			time: '',
 			_id: '',
 		});
 
@@ -58,7 +58,9 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 		this.isProcessing = true;
 		console.log('created bill', this.activity.value);
 		try {
-			await this.runNumberService.addBill(this.activity.value);
+			const bill = {...this.activity.value};
+			bill.time = new Date(bill.time);
+			await this.runNumberService.addBill(bill);
 			this.router.navigate(['/activities']);
 		} catch (e) {
 			console.error('Error while adding bill', e);
