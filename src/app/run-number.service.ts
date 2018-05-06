@@ -32,8 +32,6 @@ export class RunNumberService {
 				map((rns) => rns.activities$),
 				switchAll(),
 				zonify(this.ngZone),
-				publishBehavior([]),
-				refCount(),
 			);
 
 	}

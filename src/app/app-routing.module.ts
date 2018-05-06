@@ -8,7 +8,7 @@ import { BillNewComponent } from './components/bill-new/bill-new.component';
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'activities', component: ActivityListComponent },
-	{ path: 'new', component: BillNewComponent },
+	{ path: 'new', component: ActivityEditComponent },
 	{ path: 'activities/:activityId', component: ActivityEditComponent },
 ];
 

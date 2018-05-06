@@ -11,6 +11,8 @@ import { NameWithBackgroundComponent } from './helpers/name-with-background/name
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { Currency2 } from './helpers/currency2.pipe';
 import { RunNumberService } from './run-number.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -22,10 +24,13 @@ import { RunNumberService } from './run-number.service';
 		NameWithBackgroundComponent,
 		TimeAgoPipe,
 		Currency2,
+		NavbarComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		ReactiveFormsModule,
+		FormsModule,
 	],
 	providers: [
 		RunNumberService,
