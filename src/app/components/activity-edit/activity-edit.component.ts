@@ -13,6 +13,7 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 	subscriptions: Subscription = new Subscription();
 	activityId: string;
 	activity: FormGroup;
+	isProcessing = false;
 
 	constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {}
 
@@ -34,6 +35,7 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 	}
 
 	addBill() {
+		this.isProcessing = true;
 		console.log(this.activity.value);
 	}
 }

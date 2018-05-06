@@ -15,5 +15,8 @@
 		<label for="comment">Comment</label>
 		<input type="text" class="form-control" id="comment" formControlName="comment">
 	</div>
-	<button (click)="addBill()" type="button" class="btn btn-primary">Submit</button>
+	<button (click)="addBill()" type="button" class="btn btn-primary" [disabled]="isProcessing">
+		<span *ngIf="!isProcessing">Submit</span>
+		<span *ngIf="isProcessing"><img src="/assets/loading-spin.svg" class="spinner">Processing...</span>
+	</button>
 </form>
