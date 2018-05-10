@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RunNumberStreamify } from 'cloudy';
-import { BehaviorSubject, Observable, ConnectableObservable } from 'rxjs';
-import { publishBehavior, filter, switchAll, multicast, map, tap, first } from 'rxjs/operators';
+import { ReplaySubject, Observable, ConnectableObservable } from 'rxjs';
+import { filter, switchAll, multicast, map, tap, first } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
 
 export interface Bill {
@@ -29,11 +29,11 @@ function getInstance(runNumber$: Observable<any>): Promise<any> {
 
 @Injectable()
 export class RunNumberService {
-	runNumber$: BehaviorSubject<any> & ConnectableObservable<any>;
+	runNumber$: ReplaySubject<any> & ConnectableObservable<any>;
 	activities$: Observable<any>;
 
 	constructor(private ngZone: NgZone) {
-		this.runNumber$ = <BehaviorSubject<any> & ConnectableObservable<any>>new Observable((observer) => {
+		this.runNumber$ = <ReplaySubject<any> & ConnectableObservable<any>>new Observable((observer) => {
 			console.debug('About to create RunNumberStreamify');
 			RunNumberStreamify.create({
 				namespace: 'testing',
@@ -45,13 +45,12 @@ export class RunNumberService {
 				console.warn('Please do not kill me (runNumber$: ConnectableObservable)...');
 			};
 		}).pipe(
-			publishBehavior(undefined),
+			multicast(new ReplaySubject(1)),
 		);
 		this.runNumber$.connect();
 
 		this.activities$ = this.runNumber$
 			.pipe(
-				filter((val) => !!val),
 				map((rns) => rns.activities$),
 				switchAll(),
 				zonify(this.ngZone),
