@@ -40,9 +40,13 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 				this.runNumberService
 					.get(params.activityId)
 					.then((bill: any) => {
-						bill.time = moment(bill.time).local().format(moment.HTML5_FMT.DATETIME_LOCAL_MS);
-						bill.amount /= 100;
-						this.activity.setValue(bill);
+						const bill2 = Object.assign(
+							{},
+							bill,
+							{time: moment(bill.time).local().format(moment.HTML5_FMT.DATETIME_LOCAL_MS)},
+							{amount: bill.amount / 100},
+						);
+						this.activity.setValue(bill2);
 						this.isProcessing = false;
 					});
 			} else {
