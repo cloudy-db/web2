@@ -27,9 +27,12 @@ export class SwitchNamespaceComponent {
 		this.namespaces.push(namespace);
 	}
 
-	switchTo(id: string) {
+	async switchTo(event: Event, id: string) {
+		const target = (<any>event.target);
+		target.disabled = true;
 		console.info('switching to', id);
-		return this.runNumberService.switchTo(id);
+		await this.runNumberService.switchTo(id);
+		target.disabled = false;
 	}
 
 }
