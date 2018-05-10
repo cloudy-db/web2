@@ -13,6 +13,8 @@ import { Currency2 } from './helpers/currency2.pipe';
 import { RunNumberService } from './run-number.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SwitchNamespaceComponent } from './components/switch-namespace/switch-namespace.component';
+import { RandomPicComponent } from './components/random-pic/random-pic.component';
 
 @NgModule({
 	declarations: [
@@ -25,6 +27,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 		TimeAgoPipe,
 		Currency2,
 		NavbarComponent,
+		SwitchNamespaceComponent,
+		RandomPicComponent,
 	],
 	imports: [
 		BrowserModule,

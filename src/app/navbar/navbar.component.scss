@@ -2,10 +2,14 @@
 	.navbar-nav {
 		margin-left: auto;
 	}
-	.navbar-nav i.material-icons + span {
+	.navbar-nav i.fas + span {
 		display: none;
 	}
-	.navbar-nav i.material-icons {
+	.navbar-nav i.fas {
 		font-size: 27px;
 	}
+}
+
+.navbar-nav i.fas {
+	margin-right: 4.5px;
 }

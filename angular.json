@@ -20,7 +20,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-solid.css",
+              "./node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css"
             ],
             "scripts": []
           },
