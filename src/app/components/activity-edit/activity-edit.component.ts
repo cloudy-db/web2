@@ -41,6 +41,7 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 					.get(params.activityId)
 					.then((bill: any) => {
 						bill.time = moment(bill.time).local().format(moment.HTML5_FMT.DATETIME_LOCAL_MS);
+						bill.amount /= 100;
 						this.activity.setValue(bill);
 						this.isProcessing = false;
 					});
@@ -58,8 +59,11 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 		this.isProcessing = true;
 		console.log('created bill', this.activity.value);
 		try {
-			const bill = {...this.activity.value};
+			const bill = Object.assign({}, this.activity.value, {amount: this.activity.value.amount * 100});
 			bill.time = new Date(bill.time);
+			if (!isFinite(bill.time)) {
+				bill.time = new Date();
+			}
 			await this.runNumberService.addBill(bill);
 			this.router.navigate(['/activities']);
 		} catch (e) {
