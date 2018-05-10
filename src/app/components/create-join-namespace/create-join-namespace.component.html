@@ -1,0 +1,51 @@
+<div class="toolbar-row row justify-content-end">
+  <div class="col-md-3 col-6">
+    <button (click)="create()" type="button" class="btn btn-secondary btn-block">Create New Group</button>
+  </div>
+  <div class="col-md-3 col-6">
+    <button (click)="join()" type="button" class="btn btn-secondary btn-block">Join Existing</button>
+  </div>
+</div>
+
+<ng-template #createTpl let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Create New Group</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="hint1">Friendly Name</label>
+      <input type="name" class="form-control" [(ngModel)]="hint1" id="hint1" name=hint1 aria-describedby="hint1Help" placeholder="Japan Trip with Uni Friends">
+      <small id="hint1Help" class="form-text text-muted">This name will only be visible to you. Each user has their own individual settings.</small>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('submit')">Submit</button>
+  </div>
+</ng-template>
+
+<ng-template #joinTpl let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Join Existing Group</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="hint2">Friendly Name</label>
+      <input type="name" class="form-control" [(ngModel)]="hint2" id="hint2" name=hint2 aria-describedby="hint2Help" placeholder="Japan Trip with Uni Friends">
+      <small id="hint2Help" class="form-text text-muted">This name will only be visible to you. Each user has their own individual settings.</small>
+    </div>
+    <div class="form-group">
+      <label for="hint2">ID</label>
+      <input type="name" class="form-control" id="namespace2" name=namespace2 aria-describedby="namespace2Help" placeholder="402b0f00-a67e-45df-8944-5c13c671576d">
+      <small id="namespace2Help" class="form-text text-muted">Don't have one? Create a new group instead.</small>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('submit')">Submit</button>
+  </div>
+</ng-template>

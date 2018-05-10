@@ -15,6 +15,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SwitchNamespaceComponent } from './components/switch-namespace/switch-namespace.component';
 import { RandomPicComponent } from './components/random-pic/random-pic.component';
+import { QRCodeModule } from 'angular2-qrcode';
+import { CreateJoinNamespaceComponent } from './components/create-join-namespace/create-join-namespace.component';
 
 @NgModule({
 	declarations: [
@@ -29,12 +31,15 @@ import { RandomPicComponent } from './components/random-pic/random-pic.component
 		NavbarComponent,
 		SwitchNamespaceComponent,
 		RandomPicComponent,
+		CreateJoinNamespaceComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		ReactiveFormsModule,
 		FormsModule,
+		QRCodeModule,
+		NgbModule.forRoot(),
 	],
 	providers: [
 		RunNumberService,

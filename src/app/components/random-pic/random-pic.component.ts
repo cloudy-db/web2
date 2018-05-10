@@ -4,7 +4,7 @@ import { random } from 'lodash';
 @Component({
 	selector: 'app-random-pic',
 	templateUrl: './random-pic.component.html',
-	styleUrls: ['./random-pic.component.scss']
+	styleUrls: ['./random-pic.component.scss'],
 })
 export class RandomPicComponent implements OnInit {
 	link: string;

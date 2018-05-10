@@ -222,6 +222,10 @@
   version "4.14.108"
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
 
+"@types/node@*":
+  version "10.0.6"
+  resolved "https://registry.npmjs.org/@types/node/-/node-10.0.6.tgz#c0bce8e539bf34c1b850c13ff46bead2fecc2e58"
+
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.109"
   resolved "https://registry.npmjs.org/@types/node/-/node-6.0.109.tgz#addc070c5b0a528c286ff4188d7dcafdafbfdcce"
@@ -241,6 +245,12 @@
 "@types/strip-json-comments@0.0.30":
   version "0.0.30"
   resolved "https://registry.npmjs.org/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
+
+"@types/uuid@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
+  dependencies:
+    "@types/node" "*"
 
 abbrev@1:
   version "1.1.1"
@@ -342,6 +352,12 @@ amqplib@^0.5.2:
     buffer-more-ints "0.0.2"
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
+
+angular2-qrcode@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/angular2-qrcode/-/angular2-qrcode-2.0.1.tgz#1b4e65c302694b5078ca06f71138f7e4367754dc"
+  dependencies:
+    qrious "^2.2.0"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -1020,6 +1036,12 @@ camelcase@^4.1.0:
 caniuse-lite@^1.0.30000832, caniuse-lite@^1.0.30000835:
   version "1.0.30000839"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000839.tgz#41fcc036cf1cb77a0e0be041210f77f1ced44a7b"
+
+canvas@^1.6.5:
+  version "1.6.10"
+  resolved "https://registry.npmjs.org/canvas/-/canvas-1.6.10.tgz#aa938354642e7d61479ae5a76373b3233d7bbac8"
+  dependencies:
+    nan "^2.4.0"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -4030,7 +4052,7 @@ multicast-dns@^6.0.1:
     dns-packet "^1.3.1"
     thunky "^1.0.2"
 
-nan@^2.10.0, nan@^2.9.2:
+nan@^2.10.0, nan@^2.4.0, nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
@@ -4901,6 +4923,12 @@ q@^1.4.1:
 qjobs@^1.1.4:
   version "1.2.0"
   resolved "https://registry.npmjs.org/qjobs/-/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
+
+qrious@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/qrious/-/qrious-2.3.0.tgz#ca7ce68a82099a67a90e4979f4b1cdf51ef32475"
+  optionalDependencies:
+    canvas "^1.6.5"
 
 qs@6.5.1:
   version "6.5.1"
@@ -6474,7 +6502,7 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0:
+uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0, uuid@^3.2.1:
   version "3.2.1"
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 

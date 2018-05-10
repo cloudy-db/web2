@@ -1,12 +1,13 @@
 <div>
+	<app-create-join-namespace (joined)="addNamespace($event)" (created)="addNamespace($event)"></app-create-join-namespace>
 	<div class="row">
-		<div class="col-md-4 namespace-col">
+		<div class="col-md-4 namespace-col" *ngFor="let namespace of namespaces; index as i">
 			<div class="card">
 				<app-random-pic class="card-img-top"></app-random-pic>
 				<div class="card-body">
-					<h5 class="card-title">Network Name</h5>
+					<h5 class="card-title">{{ namespace.name }}</h5>
 					<div class="btn-group d-flex" role="group" aria-label="Buttons for interacting with the namespace">
-						<button type="button" class="btn btn-secondary"><i class="fas fa-qrcode"></i> Add Friend</button>
+						<button (click)="showQrCode(namespace)" type="button" class="btn btn-secondary"><i class="fas fa-qrcode"></i> Add Friend</button>
 						<button type="button" class="btn btn-secondary"><i class="fas fa-exchange-alt"></i> Switch</button>
 						<button type="button" class="btn btn-secondary"><i class="fas fa-trash"></i> Delete</button>
 					</div>
@@ -15,3 +16,16 @@
 		</div>
 	</div>
 </div>
+
+<ng-template #qrModal let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Add Friend</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<qr-code [value]="activeNamespace.id" size="150"></qr-code>
+		<p style="margin-top: 1em;">Invite your friend to install/visit our app, and scan the QR code!</p>
+	</div>
+</ng-template>
