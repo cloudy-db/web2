@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RunNumberService } from '../../run-number.service';
 
 @Component({
 	selector: 'app-switch-namespace',
@@ -15,7 +16,7 @@ export class SwitchNamespaceComponent {
 	@ViewChild('qrModal')
 	private qrModalTpl: TemplateRef<any>;
 
-	constructor(private modalService: NgbModal) { }
+	constructor(private modalService: NgbModal, private runNumberService: RunNumberService) { }
 
 	showQrCode(namespace) {
 		this.activeNamespace = namespace;
@@ -24,6 +25,11 @@ export class SwitchNamespaceComponent {
 
 	addNamespace(namespace) {
 		this.namespaces.push(namespace);
+	}
+
+	switchTo(id: string) {
+		console.info('switching to', id);
+		return this.runNumberService.switchTo(id);
 	}
 
 }

@@ -8,7 +8,7 @@
 					<h5 class="card-title">{{ namespace.name }}</h5>
 					<div class="btn-group d-flex" role="group" aria-label="Buttons for interacting with the namespace">
 						<button (click)="showQrCode(namespace)" type="button" class="btn btn-secondary"><i class="fas fa-qrcode"></i> Add Friend</button>
-						<button type="button" class="btn btn-secondary"><i class="fas fa-exchange-alt"></i> Switch</button>
+						<button (click)="switchTo(namespace.id)" type="button" class="btn btn-secondary"><i class="fas fa-exchange-alt"></i> Switch</button>
 						<button type="button" class="btn btn-secondary"><i class="fas fa-trash"></i> Delete</button>
 					</div>
 				</div>
@@ -26,6 +26,7 @@
 	</div>
 	<div class="modal-body">
 		<qr-code [value]="activeNamespace.id" size="150"></qr-code>
-		<p style="margin-top: 1em;">Invite your friend to install/visit our app, and scan the QR code!</p>
+		<p style="margin-top: 1em;">Group ID: <strong>{{ activeNamespace.id }}</strong></p>
+		<p>Invite your friend to install/visit our app, and scan the QR code!</p>
 	</div>
 </ng-template>

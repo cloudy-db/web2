@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RunNumberStreamify } from 'cloudy';
-import { ReplaySubject, Observable, ConnectableObservable } from 'rxjs';
-import { filter, switchAll, multicast, map, tap, first } from 'rxjs/operators';
+import { ReplaySubject, Observable, ConnectableObservable, Subject } from 'rxjs';
+import { filter, switchAll, multicast, map, tap, first, concat, bufferCount } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
 
 export interface Bill {
@@ -29,28 +29,27 @@ function getInstance(runNumber$: Observable<any>): Promise<any> {
 
 @Injectable()
 export class RunNumberService {
-	runNumber$: ReplaySubject<any> & ConnectableObservable<any>;
+	runNumber$ = new ReplaySubject<any>(1);
 	activities$: Observable<any>;
 
 	constructor(private ngZone: NgZone) {
-		this.runNumber$ = <ReplaySubject<any> & ConnectableObservable<any>>new Observable((observer) => {
-			console.debug('About to create RunNumberStreamify');
-			RunNumberStreamify.create({
-				namespace: 'testing',
-			}).then((runNumber) => {
-				console.debug('RunNumberStreamify instance', runNumber);
-				observer.next(runNumber);
+		this.runNumber$
+			.pipe(bufferCount(2, 1))
+			.subscribe(([old]) => {
+				old.stop().then(() => {
+					console.log('stopped old OrbitDB instance');
+				});
 			});
-			return function finish() {
-				console.warn('Please do not kill me (runNumber$: ConnectableObservable)...');
-			};
-		}).pipe(
-			multicast(new ReplaySubject(1)),
-		);
-		this.runNumber$.connect();
+
+		RunNumberStreamify.create({
+			namespace: 'testing',
+		}).then((runNumber) => {
+			this.runNumber$.next(runNumber);
+		});
 
 		this.activities$ = this.runNumber$
 			.pipe(
+				tap((instance) => console.log('RNS instance', instance)),
 				map((rns) => rns.activities$),
 				switchAll(),
 				zonify(this.ngZone),
@@ -67,6 +66,13 @@ export class RunNumberService {
 
 	async del(key: string): Promise<Bill> {
 		return (await getInstance(this.runNumber$)).del(key);
+	}
+
+	async switchTo(id: string) {
+		const instance = await RunNumberStreamify.create({
+			namespace: id,
+		});
+		this.runNumber$.next(instance);
 	}
 
 }
