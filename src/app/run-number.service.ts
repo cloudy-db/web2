@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { RunNumberStreamify } from 'cloudy';
+import { RunNumberStreamify } from '@cloudy-db/bundle';
 import { ReplaySubject, Observable, ConnectableObservable, Subject } from 'rxjs';
 import { filter, switchAll, multicast, map, tap, first, concat, bufferCount } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';

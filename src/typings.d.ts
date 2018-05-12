@@ -4,4 +4,4 @@ interface NodeModule {
 	id: string;
 }
 
-declare module 'cloudy';
+declare module '@cloudy-db/bundle';
