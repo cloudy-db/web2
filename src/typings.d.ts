@@ -4,5 +4,5 @@ interface NodeModule {
 	id: string;
 }
 
-declare module '@cloudy-db/bundle';
+declare module '@cloudy-db/js';
 declare module 'device';

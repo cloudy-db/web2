@@ -21,6 +21,7 @@
     "@angular/platform-browser": "6.0.0",
     "@angular/platform-browser-dynamic": "6.0.0",
     "@angular/router": "6.0.0",
+    "@cloudy-db/js": "git+https://github.com/cloudy-db/js.git",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.8",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "angular2-qrcode": "^2.0.1",
