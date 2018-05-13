@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
+## Cordova README!!
+- `npm -g install cordova` or `yarn global add cordova` (pick your own)
+- `cordova prepare`
+- `cordova requirements` and do what they ask you to do
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
