@@ -52,3 +52,4 @@ Thumbs.db
 /platforms
 /plugins
 resources/signing
+.gradle/
