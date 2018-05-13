@@ -5,11 +5,12 @@
 	.navbar-nav i.fas + span {
 		display: none;
 	}
-	.navbar-nav i.fas {
-		font-size: 27px;
-	}
 }
 
 .navbar-nav i.fas {
 	margin-right: 4.5px;
+}
+
+nav {
+	padding: 0 1rem;
 }

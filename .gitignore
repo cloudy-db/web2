@@ -7,6 +7,9 @@
 /tmp
 /out-tsc
 
+# Compiled for Cordova
+/www
+
 # dependencies
 /node_modules
 
@@ -43,3 +46,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Cordova
+
+/platforms
+/plugins
+resources/signing
+.gradle/

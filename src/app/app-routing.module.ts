@@ -5,6 +5,7 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
 import { ActivityEditComponent } from './components/activity-edit/activity-edit.component';
 import { BillNewComponent } from './components/bill-new/bill-new.component';
 import { SwitchNamespaceComponent } from './components/switch-namespace/switch-namespace.component';
+import { SettleUpComponent } from './components/settle-up/settle-up.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
 	{ path: 'activities', component: ActivityListComponent },
 	{ path: 'new', component: ActivityEditComponent },
 	{ path: 'activities/:activityId', component: ActivityEditComponent },
+	{ path: 'settle-up', component: SettleUpComponent },
 ];
 
 @NgModule({

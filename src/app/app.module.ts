@@ -17,6 +17,8 @@ import { RandomPicComponent } from './components/random-pic/random-pic.component
 import { QRCodeModule } from 'angular2-qrcode';
 import { CreateJoinNamespaceComponent } from './components/create-join-namespace/create-join-namespace.component';
 import { TimeAgo2Pipe } from './helpers/time-ago2.pipe';
+import { SettleUpComponent } from './components/settle-up/settle-up.component';
+import { SettleUpTransactionComponent } from './components/settle-up-transaction/settle-up-transaction.component';
 
 @NgModule({
 	declarations: [
@@ -32,6 +34,8 @@ import { TimeAgo2Pipe } from './helpers/time-ago2.pipe';
 		RandomPicComponent,
 		CreateJoinNamespaceComponent,
 		TimeAgo2Pipe,
+		SettleUpComponent,
+		SettleUpTransactionComponent,
 	],
 	imports: [
 		BrowserModule,
