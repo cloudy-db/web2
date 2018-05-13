@@ -22,42 +22,16 @@
           <div class="card buddy">
             <app-name-with-background name="{{ buddy.name }}" class="card-img-top"></app-name-with-background>
             <div class="card-body">
-              <span *ngFor="let currency of buddy.currencies; first as isFirst">
-                <h5>
-                    {{ currency.name | currency2 }}
-                    {{ currency.amount/100 | number:'0.2-2' }}
+              <span *ngFor="let currency of buddy.currencies">
+                <h5 *ngIf="currency.name !== latestCurrency">
+                  {{ currency.name | currency2 }}
+                  {{ currency.amount/100 | number:'0.2-2' }}
                 </h5>
+                <h3 *ngIf="currency.name === latestCurrency">
+                  {{ currency.name | currency2 }}
+                  {{ currency.amount/100 | number:'0.2-2' }}
+                </h3>
               </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card buddy">
-            <app-name-with-background name="Isaac" class="card-img-top"></app-name-with-background>
-            <div class="card-body">
-              <h3>US$13.5</h3>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card buddy">
-            <app-name-with-background name="Curtis" class="card-img-top"></app-name-with-background>
-            <div class="card-body">
-              <h3>US$13.5</h3>
-              <h5>HK$922.32</h5>
-              <h5>CN¥922.32</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card buddy">
-            <app-name-with-background name="Annie" class="card-img-top"></app-name-with-background>
-            <div class="card-body">
-              <h3>US$13.5</h3>
-              <h5>JP¥922.32</h5>
-              <h5>CN¥922.32</h5>
             </div>
           </div>
         </div>
