@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "855160823058",
+    "firebase_url": "https://cloudy-runnumber.firebaseio.com",
+    "project_id": "cloudy-runnumber",
+    "storage_bucket": "cloudy-runnumber.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855160823058:android:5b1276a488ceda18",
+        "android_client_info": {
+          "package_name": "org.cloudy.runnumber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855160823058-rq52l0i61o6rd5miog30aq9jsk43ebi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQf1h8Dq9FXHJz8jpab8Gs0Fbgp2srHfA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

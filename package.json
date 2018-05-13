@@ -32,6 +32,7 @@
     "core-js": "^2.4.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
+    "phonegap-plugin-push": "^2.2.2",
     "randomcolor": "^0.5.3",
     "roboto-fontface": "^0.9.0",
     "rxjs": "6.1.0",
@@ -63,7 +64,11 @@
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "phonegap-plugin-push": {
+        "ANDROID_SUPPORT_V13_VERSION": "27.+",
+        "FCM_VERSION": "11.6.2"
+      }
     },
     "platforms": [
       "browser",
