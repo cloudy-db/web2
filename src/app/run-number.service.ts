@@ -3,6 +3,8 @@ import { RunNumberStreamify } from '@cloudy-db/js';
 import { ReplaySubject, Observable, ConnectableObservable, Subject } from 'rxjs';
 import { filter, switchAll, multicast, map, tap, first, concat, bufferCount } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
+import { groupBy, sumBy, mapValues } from 'lodash';
+import * as moment from 'moment';
 
 export interface Bill {
 	amount: number;
@@ -31,6 +33,9 @@ function getInstance(runNumber$: Observable<any>): Promise<any> {
 export class RunNumberService {
 	runNumber$ = new ReplaySubject<any>(1);
 	activities$: Observable<any>;
+	summary$: Observable<any>;
+	dashboard$: Observable<any>;
+	today$: Observable<any>;
 
 	constructor(private ngZone: NgZone) {
 		this.runNumber$
@@ -44,6 +49,7 @@ export class RunNumberService {
 		RunNumberStreamify.create({
 			namespace: 'testing',
 		}).then((runNumber) => {
+			console.log('RunNumber instance', runNumber);
 			this.runNumber$.next(runNumber);
 		});
 
@@ -53,6 +59,76 @@ export class RunNumberService {
 				map((rns) => rns.activities$),
 				switchAll(),
 				zonify(this.ngZone),
+			);
+
+		this.summary$ = this.activities$
+			.pipe(
+				map((activities) => {
+					let byPerson = groupBy(activities, 'name');
+
+					byPerson = mapValues(byPerson, (person) => {
+						// @ts-ignore
+						person = groupBy(person, 'currency');
+						// @ts-ignore
+						person = mapValues(person, (currency) => {
+							// @ts-ignore
+							currency = sumBy(currency, 'amount');
+							return currency;
+						});
+						return person;
+					});
+
+					return byPerson;
+				}),
+				map((buddies) => Object.entries(buddies)),
+				map((buddies) => buddies.map((buddy) => ({
+					name: buddy[0],
+					currencies: Object.entries(buddy[1]).map((currency) => ({
+						name: currency[0],
+						amount: currency[1],
+					})),
+				})))
+			);
+
+		this.dashboard$ = this.activities$
+			.pipe(
+				map((activities) => {
+					const byCurrency = groupBy(activities, 'currency');
+
+					return mapValues(byCurrency, (currency) => {
+						// @ts-ignore
+						currency = sumBy(currency, 'amount');
+						return currency;
+					});
+				}),
+				map((currencies) => Object.entries(currencies)),
+				map((currencies) => currencies.map((currency) => ({
+					name: currency[0],
+					amount: currency[1],
+				}))),
+			);
+
+		this.today$ = this.activities$
+			.pipe(
+				map((activities) => {
+					const past24 = moment().subtract(24, 'hours').toDate();
+					const now = new Date();
+					return activities.filter((activity) => activity.time >= past24 && activity.time <= now);
+				}),
+				map((activities) => {
+					const byCurrency = groupBy(activities, 'currency');
+
+					return mapValues(byCurrency, (currency) => {
+						// @ts-ignore
+						currency = sumBy(currency, 'amount');
+						return currency;
+					});
+				}),
+				map((currencies) => Object.entries(currencies)),
+				map((currencies) => currencies.map((currency) => ({
+					name: currency[0],
+					amount: currency[1],
+				}))),
 			);
 	}
 

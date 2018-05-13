@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RunNumberService } from '../../run-number.service';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-home',
@@ -6,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-	instance1;
+	buddies$;
+	dashboard$;
+	today$;
+	latestCurrency = 'HKD';
 
-	constructor() { }
+	constructor(private runNumberService: RunNumberService) {}
 
-	async ngOnInit() {
+	ngOnInit() {
+		this.buddies$ = this.runNumberService.summary$;
+		// this.latestCurrency
+
+		this.dashboard$ = this.runNumberService.dashboard$;
+		this.today$ = this.runNumberService.today$;
 	}
 
 }

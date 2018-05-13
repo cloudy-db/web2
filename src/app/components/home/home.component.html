@@ -2,22 +2,36 @@
   <div class="row">
     <div class="col-md-4 numbers">
       <div class="spent-today">
-        <h3>US$2.34</h3>
+        <h3 *ngFor="let currency of today$ | async">
+          {{ currency.name | currency2 }}
+          {{ currency.amount/100 | number:'0.2-2' }}
+        </h3>
         <div>Spent Today</div>
       </div>
       <div class="spent-total">
-        <h3>US$2.34</h3>
-        <h3>HK$2.34</h3>
+        <h3 *ngFor="let currency of dashboard$ | async">
+          {{ currency.name | currency2 }}
+          {{ currency.amount/100 | number:'0.2-2' }}
+        </h3>
         <div>Spent Total</div>
-      </div>
-      <div class="you-due">
-        <h3>US$2.34</h3>
-        <h3>US$2.34</h3>
-        <div>Payment Due</div>
       </div>
     </div>
     <div class="col-md-8">
       <div class="row">
+        <div class="col-md-4" *ngFor="let buddy of buddies$ | async">
+          <div class="card buddy">
+            <app-name-with-background name="{{ buddy.name }}" class="card-img-top"></app-name-with-background>
+            <div class="card-body">
+              <span *ngFor="let currency of buddy.currencies; first as isFirst">
+                <h5>
+                    {{ currency.name | currency2 }}
+                    {{ currency.amount/100 | number:'0.2-2' }}
+                </h5>
+              </span>
+            </div>
+          </div>
+        </div>
+
         <div class="col-md-4">
           <div class="card buddy">
             <app-name-with-background name="Isaac" class="card-img-top"></app-name-with-background>
