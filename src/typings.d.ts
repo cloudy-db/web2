@@ -5,3 +5,4 @@ interface NodeModule {
 }
 
 declare module '@cloudy-db/bundle';
+declare module 'device';

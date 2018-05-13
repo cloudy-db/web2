@@ -14,7 +14,7 @@ export class RandomPicComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.link = `/assets/namespace-cover/${random(1, 10)}.jpg`;
+		this.link = `assets/namespace-cover/${random(1, 10)}.jpg`;
 	}
 
 }

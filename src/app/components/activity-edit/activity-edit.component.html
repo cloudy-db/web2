@@ -25,13 +25,13 @@
 		<div class="col-md button">
 			<button (click)="addBill()" type="button" class="btn btn-primary btn-block" [disabled]="isProcessing">
 				<span *ngIf="!isProcessing">Submit</span>
-				<span *ngIf="isProcessing"><img src="/assets/loading-spin.svg" class="spinner">Processing...</span>
+				<span *ngIf="isProcessing"><img src="assets/loading-spin.svg" class="spinner">Processing...</span>
 			</button>
 		</div>
 		<div class="col-md button" *ngIf="activityId">
 			<button (click)="delete()" type="button" class="btn btn-danger btn-block" [disabled]="isProcessing">
 				<span *ngIf="!isProcessing">Delete</span>
-				<span *ngIf="isProcessing"><img src="/assets/loading-spin.svg" class="spinner">Processing...</span>
+				<span *ngIf="isProcessing"><img src="assets/loading-spin.svg" class="spinner">Processing...</span>
 			</button>
 		</div>
 	</div>

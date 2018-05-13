@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CordovaService } from './cordova.service';
 
 @Component({
 	selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 	title = 'app';
+	constructor(protected cordovaService: CordovaService) {}
 }
