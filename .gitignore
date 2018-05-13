@@ -53,3 +53,5 @@ Thumbs.db
 /plugins
 resources/signing
 .gradle/
+
+google-services.json
