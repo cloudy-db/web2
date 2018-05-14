@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef, Output, EventEmitter } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExecSyncOptionsWithBufferEncoding } from 'child_process';
 import { v4 as uuid } from 'uuid';
-import { QRScanner } from 'cordova-plugin-qrscanner';
+import { QRScanner, QRScannerStatus } from 'cordova-plugin-qrscanner';
 
 @Component({
 	selector: 'app-create-join-namespace',
@@ -44,20 +44,30 @@ export class CreateJoinNamespaceComponent {
 	}
 
 	join() {
-		document.addEventListener("deviceready", onDeviceReady, false);
-			function onDeviceReady() {
-    	console.log(device.cordova);
-		}
-
-
-
-
-		/*this.modalService.open(this.joinRef).result.then((reason: string) => {
+		this.modalService.open(this.joinRef).result.then((reason: string) => {
 			if (reason === 'submit') {
 				this.joined.emit({name: this.hint2, id: this.namespace2});
 			}
 			this.reset();
-		}).catch(() => {});*/
+		}).catch(() => {});
+	}
+
+	scan() {
+		/*QRScanner.prepare(onDone); // show the prompt
+
+		function onDone(err, status){
+		  if (err) {
+		   // here we can handle errors and clean up any loose ends.
+		   console.error(err);
+		  }
+		  if (status.authorized) {
+
+		  } else if (status.denied) {
+
+		  } else {
+
+		  }
+		}*/
 	}
 
 }
