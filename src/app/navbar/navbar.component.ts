@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class NavbarComponent {
 	degraded$: Observable<boolean>;
 
-	constructor(protected navCurrent: NavCurrentService, private runNumberService: RunNumberService) {
+	constructor(public navCurrent: NavCurrentService, private runNumberService: RunNumberService) {
 		this.degraded$ = runNumberService.degraded$;
 	}
 
