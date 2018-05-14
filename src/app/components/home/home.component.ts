@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 	dashboard$;
 	today$;
 	latestCurrency;
+	haveActivity = false;
 	subscription = new Subscription();
 
 	constructor(private runNumberService: RunNumberService) {}
@@ -31,6 +32,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 				if (activities[0] && activities[0].currency) {
 					this.latestCurrency = activities[0].currency;
 				}
+			}));
+
+		this.subscription.add(this.runNumberService.activities$
+			.subscribe((activities) => {
+				this.haveActivity = activities.length !== 0;
 			}));
 	}
 

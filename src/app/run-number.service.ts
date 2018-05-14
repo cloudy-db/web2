@@ -55,7 +55,6 @@ export class RunNumberService {
 
 		this.activities$ = this.runNumber$
 			.pipe(
-				tap((instance) => console.log('RNS instance', instance)),
 				map((rns) => rns.activities$),
 				switchAll(),
 				zonify(this.ngZone),
@@ -152,7 +151,7 @@ export class RunNumberService {
 	}
 
 	updateWakeupFunction(func: Function, deviceId: string) {
-		return this.instanceOnce((instance) => instance.updateWakeupFunction(func, deviceId));
+		return this.instanceOnce((instance) => instance.cloudy.updateWakeupFunction(func, deviceId));
 	}
 
 	instanceOnce(func) {
