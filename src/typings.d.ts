@@ -5,4 +5,7 @@ interface NodeModule {
 }
 
 declare module '@cloudy-db/js';
-declare module 'device';
+declare var device: any;
+declare var PushNotification: any;
+
+// declare var PushNotification: any;

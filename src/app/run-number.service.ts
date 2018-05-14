@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RunNumberStreamify } from '@cloudy-db/js';
 import { ReplaySubject, Observable, ConnectableObservable, Subject } from 'rxjs';
-import { filter, switchAll, multicast, map, tap, first, concat, bufferCount } from 'rxjs/operators';
+import { filter, switchAll, multicast, map, tap, first, concat, bufferCount, take } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
 import { groupBy, sumBy, mapValues } from 'lodash';
 import * as moment from 'moment';
@@ -41,7 +41,7 @@ export class RunNumberService {
 		this.runNumber$
 			.pipe(bufferCount(2, 1))
 			.subscribe(([old]) => {
-				old.stop().then(() => {
+				old.cloudy.stop().then(() => {
 					console.log('stopped old OrbitDB instance');
 				});
 			});
@@ -149,6 +149,22 @@ export class RunNumberService {
 			namespace: id,
 		});
 		this.runNumber$.next(instance);
+	}
+
+	updateWakeupFunction(func: Function, deviceId: string) {
+		return this.instanceOnce((instance) => instance.updateWakeupFunction(func, deviceId));
+	}
+
+	instanceOnce(func) {
+		return new Promise((resolve, reject) => {
+			this.runNumber$
+			.pipe(take(1))
+			.subscribe((instance) => {
+				resolve(func(instance));
+			}, () => {
+				reject(new Error('cannot get RunNumber instance'));
+			});
+		});
 	}
 
 }

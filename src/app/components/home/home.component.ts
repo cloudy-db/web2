@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RunNumberService } from '../../run-number.service';
-import { map, tap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Subscription } from '@angular-devkit/core/node_modules/rxjs';
 
 @Component({
@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this.today$ = this.runNumberService.today$;
 		this.subscription.add(this.runNumberService.activities$.
 			pipe(
+				filter((activities) => activities.length > 0),
 				map((activities) => {
 					return activities.filter((activity) => (activity.time <= new Date()));
 				})
