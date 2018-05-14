@@ -3,7 +3,7 @@ import { RunNumberStreamify } from '@cloudy-db/js';
 import { ReplaySubject, Observable, ConnectableObservable, Subject } from 'rxjs';
 import { filter, switchAll, multicast, map, tap, first, concat, bufferCount, take } from 'rxjs/operators';
 import { zonify } from './helpers/monkey-patch-stream';
-import { groupBy, sumBy, mapValues } from 'lodash';
+import { groupBy, sumBy, mapValues, get } from 'lodash';
 import * as moment from 'moment';
 
 export interface Bill {
@@ -36,6 +36,7 @@ export class RunNumberService {
 	summary$: Observable<any>;
 	dashboard$: Observable<any>;
 	today$: Observable<any>;
+	degraded$: Observable<boolean>;
 
 	constructor(private ngZone: NgZone) {
 		this.runNumber$
@@ -128,6 +129,13 @@ export class RunNumberService {
 					name: currency[0],
 					amount: currency[1],
 				}))),
+			);
+
+		this.degraded$ = this
+			.runNumber$
+			.pipe(
+				map((instance) => get(instance, 'cloudy.degraded', false)),
+				zonify(this.ngZone)
 			);
 	}
 

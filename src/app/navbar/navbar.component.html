@@ -29,3 +29,6 @@
     </ul>
   </div>
 </nav>
+<div class="alert alert-warning" role="alert" *ngIf="degraded$ | async">
+  <strong>DEGRADED MODE</strong>: Please restart the app after you've re-established Internet connectivity.
+</div>
