@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavCurrentService } from '../nav-current.service';
+import { RunNumberService } from '../run-number.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-navbar',
@@ -7,7 +10,10 @@ import { NavCurrentService } from '../nav-current.service';
 	styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+	degraded$: Observable<boolean>;
 
-	constructor(private navCurrent: NavCurrentService) {}
+	constructor(private navCurrent: NavCurrentService, private runNumberService: RunNumberService) {
+		this.degraded$ = runNumberService.degraded$;
+	}
 
 }
