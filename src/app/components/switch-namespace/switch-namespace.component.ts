@@ -20,7 +20,7 @@ export class SwitchNamespaceComponent implements OnInit {
 	constructor(private modalService: NgbModal, private runNumberService: RunNumberService, private navCurrent: NavCurrentService) {}
 
 	ngOnInit() {
-		this.navCurrent.next('Switching Groups');
+		this.navCurrent.next('Groups');
 	}
 
 	showQrCode(namespace) {

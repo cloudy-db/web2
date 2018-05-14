@@ -17,7 +17,6 @@ export class CordovaService {
 				} else {
 					const push = (<any>PushNotification).init({
 						android: {
-							forceShow: true,
 						},
 						ios: {
 							alert: true,
