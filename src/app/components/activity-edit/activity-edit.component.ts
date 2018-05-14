@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RunNumberService, Bill } from '../../run-number.service';
 import * as moment from 'moment';
@@ -32,11 +32,11 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.activity = this.fb.group({
-			amount: '',
-			currency: '',
-			name: '',
+			amount: ['', [Validators.required , Validators.pattern(/^\d+(?:\.\d{1,2})?$/)]],
+			currency: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
+			name: ['', Validators.required],
 			comment: '',
-			time: '',
+			time: ['', Validators.required],
 			_id: '',
 		});
 
@@ -69,6 +69,9 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 	}
 
 	async addBill() {
+		if (!this.activity.valid) {
+			return alert('Please fill in all information');
+		}
 		this.isProcessing = true;
 		console.log('created bill', this.activity.value);
 		try {
