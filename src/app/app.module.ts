@@ -6,7 +6,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityEditComponent } from './components/activity-edit/activity-edit.component';
-import { BillNewComponent } from './components/bill-new/bill-new.component';
 import { NameWithBackgroundComponent } from './helpers/name-with-background/name-with-background.component';
 import { Currency2 } from './helpers/currency2.pipe';
 import { RunNumberService } from './run-number.service';
@@ -24,7 +23,6 @@ import { TimeAgo2Pipe } from './helpers/time-ago2.pipe';
 		HomeComponent,
 		ActivityListComponent,
 		ActivityEditComponent,
-		BillNewComponent,
 		NameWithBackgroundComponent,
 		Currency2,
 		NavbarComponent,

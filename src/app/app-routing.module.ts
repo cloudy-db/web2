@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityEditComponent } from './components/activity-edit/activity-edit.component';
-import { BillNewComponent } from './components/bill-new/bill-new.component';
 import { SwitchNamespaceComponent } from './components/switch-namespace/switch-namespace.component';
 
 const routes: Routes = [

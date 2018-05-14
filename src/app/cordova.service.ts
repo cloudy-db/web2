@@ -1,12 +1,13 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Injector } from '@angular/core';
 import { RunNumberService } from './run-number.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class CordovaService {
+	runNumberService: RunNumberService;
 
-	constructor(private runNumberService: RunNumberService, private ngZone: NgZone) {
+	constructor(private ngZone: NgZone, private injector: Injector) {
 		const that = this;
 
 		ngZone.runOutsideAngular(() => {
@@ -26,7 +27,7 @@ export class CordovaService {
 					push.on('registration', function pushRegistrationHandler(data) {
 						console.log('registration suceeded', data.registrationId);
 
-						runNumberService.updateWakeupFunction(function fakeCall() {
+						that._getRunNumberService().updateWakeupFunction(function fakeCall() {
 							console.log('haha', data.registrationId);
 						}, device.uuid)
 							.then((update) => {
@@ -41,5 +42,13 @@ export class CordovaService {
 				}
 			}, false);
 		});
+	}
+
+	_getRunNumberService() {
+		if (this.runNumberService) {
+			return this.runNumberService;
+		} else {
+			return this.runNumberService = this.injector.get(RunNumberService);
+		}
 	}
 }
