@@ -6,7 +6,7 @@ import * as moment from 'moment';
 	pure: false,
 })
 export class TimeAgo2Pipe implements PipeTransform, OnDestroy {
-	private timer: number;
+	private timer;
 	constructor(private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {}
 	transform(value: string) {
 		this.removeTimer();
@@ -17,14 +17,7 @@ export class TimeAgo2Pipe implements PipeTransform, OnDestroy {
 		}
 
 		const timeToUpdate = this.getSecondsUntilUpdate(moment().diff(time, 'seconds')) * 1000;
-		this.timer = this.ngZone.runOutsideAngular(() => {
-			if (typeof window !== 'undefined') {
-				return window.setTimeout(() => {
-					this.ngZone.run(() => this.changeDetectorRef.markForCheck());
-				}, timeToUpdate);
-			}
-			return null;
-		});
+		this.timer = setTimeout(() => this.changeDetectorRef.markForCheck(), timeToUpdate);
 
 		return time.fromNow();
 	}

@@ -31,7 +31,8 @@ function getInstance(runNumber$: Observable<any>): Promise<any> {
 
 @Injectable()
 export class RunNumberService {
-	runNumber$ = new ReplaySubject<any>(1);
+	runNumberInternal$ = new ReplaySubject<any>(1);
+	runNumber$: Observable<any>;
 	activities$: Observable<any>;
 	summary$: Observable<any>;
 	dashboard$: Observable<any>;
@@ -39,11 +40,13 @@ export class RunNumberService {
 	degraded$: Observable<boolean>;
 
 	constructor(private ngZone: NgZone) {
+		this.runNumber$ = this.runNumberInternal$.pipe(zonify(ngZone));
+
 		this.runNumber$
 			.pipe(bufferCount(2, 1))
 			.subscribe(([old]) => {
 				old.cloudy.stop().then(() => {
-					console.log('stopped old OrbitDB instance');
+					console.log('stopped old OrbitDB instance', old);
 				});
 			});
 
@@ -51,14 +54,14 @@ export class RunNumberService {
 			namespace: 'testing',
 		}).then((runNumber) => {
 			console.log('RunNumber instance', runNumber);
-			this.runNumber$.next(runNumber);
+			this.runNumberInternal$.next(runNumber);
 		});
 
 		this.activities$ = this.runNumber$
 			.pipe(
 				map((rns) => rns.activities$),
 				switchAll(),
-				zonify(this.ngZone),
+				zonify(this.ngZone)
 			);
 
 		this.summary$ = this.activities$
@@ -134,8 +137,7 @@ export class RunNumberService {
 		this.degraded$ = this
 			.runNumber$
 			.pipe(
-				map((instance) => get(instance, 'cloudy.degraded', false)),
-				zonify(this.ngZone)
+				map((instance) => get(instance, 'cloudy.degraded', false))
 			);
 	}
 
@@ -155,7 +157,7 @@ export class RunNumberService {
 		const instance = await RunNumberStreamify.create({
 			namespace: id,
 		});
-		this.runNumber$.next(instance);
+		this.runNumberInternal$.next(instance);
 	}
 
 	updateWakeupFunction(func: Function, deviceId: string) {
