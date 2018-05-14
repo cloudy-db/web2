@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RunNumberService } from '../../run-number.service';
 import { map, filter } from 'rxjs/operators';
 import { Subscription } from '@angular-devkit/core/node_modules/rxjs';
+import { NavCurrentService } from '../../nav-current.service';
 
 @Component({
 	selector: 'app-home',
@@ -16,9 +17,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 	haveActivity = false;
 	subscription = new Subscription();
 
-	constructor(private runNumberService: RunNumberService) {}
+	constructor(private runNumberService: RunNumberService, private navCurrent: NavCurrentService) {}
 
 	ngOnInit() {
+		this.navCurrent.next('RunNumber');
+
 		this.buddies$ = this.runNumberService.summary$;
 		this.dashboard$ = this.runNumberService.dashboard$;
 		this.today$ = this.runNumberService.today$;

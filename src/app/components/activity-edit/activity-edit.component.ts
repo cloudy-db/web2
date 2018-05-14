@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RunNumberService, Bill } from '../../run-number.service';
 import * as moment from 'moment';
+import { NavCurrentService } from '../../nav-current.service';
 
 interface BillTimestr extends Bill {
 	time: any;
@@ -21,7 +22,13 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 	activity: FormGroup;
 	isProcessing = true;
 
-	constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private runNumberService: RunNumberService) {}
+	constructor(
+		private route: ActivatedRoute,
+		private fb: FormBuilder,
+		private router: Router,
+		private runNumberService: RunNumberService,
+		private navCurrent: NavCurrentService
+	) {}
 
 	ngOnInit() {
 		this.activity = this.fb.group({
@@ -32,6 +39,8 @@ export class ActivityEditComponent implements OnInit, OnDestroy {
 			time: '',
 			_id: '',
 		});
+
+		this.navCurrent.next('Bill Edit/Create');
 
 		this.subscriptions.add(this.route.params.subscribe(params => {
 			this.activityId = params.activityId;

@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RunNumberService } from '../../run-number.service';
+import { NavCurrentService } from '../../nav-current.service';
 
 @Component({
 	selector: 'app-switch-namespace',
 	templateUrl: './switch-namespace.component.html',
 	styleUrls: ['./switch-namespace.component.scss'],
 })
-export class SwitchNamespaceComponent {
+export class SwitchNamespaceComponent implements OnInit {
 	namespaces = [
 		{name: 'Japan 2018', 'id': 'testing'},
 		{name: 'Tapei 2018', 'id': 'testing2'},
@@ -16,7 +17,11 @@ export class SwitchNamespaceComponent {
 	@ViewChild('qrModal')
 	private qrModalTpl: TemplateRef<any>;
 
-	constructor(private modalService: NgbModal, private runNumberService: RunNumberService) { }
+	constructor(private modalService: NgbModal, private runNumberService: RunNumberService, private navCurrent: NavCurrentService) {}
+
+	ngOnInit() {
+		this.navCurrent.next('Switching Groups');
+	}
 
 	showQrCode(namespace) {
 		this.activeNamespace = namespace;

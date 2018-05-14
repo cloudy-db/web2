@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RunNumberService } from '../../run-number.service';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { NavCurrentService } from '../../nav-current.service';
 
 @Component({
 	selector: 'app-activity-list',
@@ -18,10 +19,11 @@ export class ActivityListComponent implements OnInit {
 		{amount: 12345, currency: 'HKD', time: new Date('2018-01-01'), name: 'Isaac', comment: 'cool'},
 	];
 
-	constructor(private runNumberService: RunNumberService, private cdRef: ChangeDetectorRef) {}
+	constructor(private runNumberService: RunNumberService, private navCurrent: NavCurrentService) {}
 
 	ngOnInit() {
 		this.bills$ = this.runNumberService.activities$;
+		this.navCurrent.next('Activity');
 	}
 
 }

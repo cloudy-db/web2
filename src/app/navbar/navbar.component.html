@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light fixed-top navbar-expand" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" routerLink="/">RunNumber</a>
+  <span class="navbar-brand">{{ navCurrent | async }}</span>
   <div class="collapse navbar-collapse">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link" routerLink="/">
           <i class="fas fa-tachometer-alt"></i>
