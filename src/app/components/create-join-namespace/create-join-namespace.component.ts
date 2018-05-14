@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef, Output, EventEmitter } from 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExecSyncOptionsWithBufferEncoding } from 'child_process';
 import { v4 as uuid } from 'uuid';
+import { QRScanner } from 'cordova-plugin-qrscanner';
 
 @Component({
 	selector: 'app-create-join-namespace',
@@ -23,7 +24,8 @@ export class CreateJoinNamespaceComponent {
 	hint1: string; hint2: string;
 	namespace2: string;
 
-	constructor(private modalService: NgbModal) { }
+	constructor(private modalService: NgbModal) {
+	}
 
 	reset() {
 		this.hint1 = '';
@@ -42,12 +44,20 @@ export class CreateJoinNamespaceComponent {
 	}
 
 	join() {
-		this.modalService.open(this.joinRef).result.then((reason: string) => {
+		document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+    	console.log(device.cordova);
+		}
+
+
+
+
+		/*this.modalService.open(this.joinRef).result.then((reason: string) => {
 			if (reason === 'submit') {
 				this.joined.emit({name: this.hint2, id: this.namespace2});
 			}
 			this.reset();
-		}).catch(() => {});
+		}).catch(() => {});*/
 	}
 
 }
